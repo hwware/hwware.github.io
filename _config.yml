@@ -2,7 +2,6 @@ theme: jekyll-theme-tactile
 title: [Welcome to Wenhui's Page]
 description: [Work Hard & Keep Simple]
 email: wen.hui.ware@gmail.com
-baseurl: "/about" # the subpath of your site, e.g. /blog/
 twitter_username: wen_hui_ware
 github_username:  hwware
 
