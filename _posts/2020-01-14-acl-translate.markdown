@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Redis 6 ACL(翻译自Redis Lab)"
+title:  "Redis 6 ACL(Translated from Redis Lab)"
 date:   2020-01-14 12:58:29
 categories: Redis
 ---
 
-翻译自： https://redis.io/topics/acl
+Translated from： https://redis.io/topics/acl
 
 Redis访问控制列表(ACL),是一项可以实现限制特定客户端连接可执行命令和键访问的功能，它的工作方式是：客户端连接服务器以后，客户端需要提供用户名和密码用于验证身份：如果验证成功，客户端连接会关联特定用户以及用户相应的权限。Redis可以配置新的客户端连接自动使用default用户进行验证（默认选项），因此配置default用户权限
 会使没有验证的客户端只能使用一小部分功能。
