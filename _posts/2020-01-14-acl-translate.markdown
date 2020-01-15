@@ -61,7 +61,9 @@ ACL 是用DSL(domain specific language)语言来定义用户是否有权限访�
 * `nocommands`:  `-@all`的别名。
 
 ### 允许和禁止特定的键
-* `~<pattern>`:添加一个键模式以被用在用户执行命令里面。例如~*允许使用所有的键。键的模式是通配符模式，像KEYS命令一样。另外使用多个模式也是被允许的，`* allkeys:`是`~*`的别名，`* resetkeys:`在键模式列表里面清空所有的键模式，例如`ACL ~foo:* ~bar:* resetkeys ~objects:*`，将会使用户端只有权限访问`objects:*` 的键模式。
+* `~<pattern>`:添加一个键模式以被用在用户执行命令里面。例如~*允许使用所有的键。键的模式是通配符模式，像KEYS命令一样。另外使用多个模式也是被允许的.
+* `* allkeys:`是`~*`的别名，
+* `* resetkeys:`在键模式列表里面清空所有的键模式，例如`ACL ~foo:* ~bar:* resetkeys ~objects:*`，将会使用户端只有权限访问`objects:*` 的键模式。
 
 ### 配置有效的用户名密码：
 * `><password>:`添加密码到用户有效密码列表里，例如>mypass将添加mypass到用户有效密码列表，这个配置会使nopass失效，每个用户都可以配置任何数量的密码。
