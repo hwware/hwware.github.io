@@ -288,11 +288,17 @@ ACL密码不会用于保护其他任何东西，例如永远不会作为一些�
 这两种方式是互相不兼容的，Redis会让你选择其中的一种方式。在redis.conf中配置用户是非常简单的，适用于简易的应用场景。如果需要有很多用户去设定，在复杂的环境中，我们强烈建议使用ACL文件。
 Redis.conf 和外部ACL文件是完全一样的。所以从一个转换到另一个是非常简单的。
 下面的例子：
-```user <username> ... acl rules ...```
+```
+user <username> ... acl rules ...
+```
 例如：
-```user worker +@list +@connection ~jobs:* on >ffa9203c493aa99```
+```
+user worker +@list +@connection ~jobs:* on >ffa9203c493aa99
+```
 当你希望使用外部ACL文件，你需要指定配置选项aclfile，像下面这样：
-```aclfile /etc/redis/users.acl```
+```
+aclfile /etc/redis/users.acl
+```
 当你直接在redis.conf中直接指定一些用户的时候，你可以使用CONFIG REWRITE来覆盖存储文件中新的用户配置。
 外部ACL文件具有更加强大的功能，你可以像下面这样：
 
