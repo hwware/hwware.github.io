@@ -35,8 +35,8 @@ ACL 是用DSL(domain specific language)语言来定义用户是否有权限访�
 
 默认配置下只有一个用户被定义（default用户）。我们可以使用 ACL LIST命令来检查当前有效的ACL规则。使用ACL LIST确认刚启动的，使用默认配置的Redis 实例ACL规则如下：
 
-```> ACL LIST
-1) "user default on nopass ~* +@all"```
+```> ACL LIST```
+```1) "user default on nopass ~* +@all"```
 
 上面的命令遵循和Redis配置文件同样的格式返回当前ACL配置的规则。
 每一行最前面的两个词是”user”和用户名。之后的词是具体ACL定义的规则。 我们下面将会看到怎样使用这些规则，但是现在，可以简单理解为默认（default）用户的配置是开启的（active（on）），不需要密码（require no password（nopass）），可以访问所有键（to access every possible key（～*))和可以执行任何命令（call every possible command（+@all））的。
@@ -46,17 +46,17 @@ ACL 是用DSL(domain specific language)语言来定义用户是否有权限访�
 下面是有效的ACL规则，特定规则只是用于启用或删除特定ACL标志的词，或者用于改变用户当前的ACL规则。其他的规则是char 类型的前缀和命令或命令类别的名字，或者键的模式。
 
 ### 启用和禁止用户
-`on`：启用用户：可以使用这个用户进行验证。
-`off`：禁止用户：不能使用这个用户进行验证，但已经验证的客户端连接仍然可以继续工作，需要注意的是如果默认（default）用户如果被禁止，默认用户配置将不起作用，新的客户端连接将会不被验证并且需要用户显式发送AUTH命令或HELLO命令进行验证。
+* `on`：启用用户：可以使用这个用户进行验证。
+* `off`：禁止用户：不能使用这个用户进行验证，但已经验证的客户端连接仍然可以继续工作，需要注意的是如果默认（default）用户如果被禁止，默认用户配置将不起作用，新的客户端连接将会不被验证并且需要用户显式发送AUTH命令或HELLO命令进行验证。
 
 ### 允许和禁止命令
-`+<command>`: 添加命令到用户允许执行命令列表。
-`-<command>`: 从用户允许执行命令列表删除命令。
-`+@<category>`: 允许用户执行所有定义在category类别中的命令。有效的类别例如@admin, @set, @sortedset等等。你可以通过使用ACL CAT命令查看所有预定义的类别，另外一个特殊的类别+@all意思是所有在当前系统里的命令，以及将来在Redis模块中添加的命令。
-`-@<category>`: 类似于+@<category> ，但是是从用户可以执行的命令列表中删除特定的命令。
-`+<command>|subcommand`:允许 用户启用一个被禁止命令的子命令，请注意这个命令不允许使用-规则，例如-DEBUG|SEGFAULT，只能使用+规则。如果整个命令已经被启用，单独启用子命令没有意义，Redis会返回错误。
-`allcommands`: +@all的别名. 注意这个会使用户允许执行所有从Redis模块中添加的命令。
-`nocommands`:  -@all的别名。
+* `+<command>`: 添加命令到用户允许执行命令列表。
+* `-<command>`: 从用户允许执行命令列表删除命令。
+* `+@<category>`: 允许用户执行所有定义在category类别中的命令。有效的类别例如@admin, @set, @sortedset等等。你可以通过使用ACL CAT命令查看所有预定义的类别，另外一个特殊的类别+@all意思是所有在当前系统里的命令，以及将来在Redis模块中添加的命令。
+* `-@<category>`: 类似于+@<category> ，但是是从用户可以执行的命令列表中删除特定的命令。
+* `+<command>|subcommand`:允许 用户启用一个被禁止命令的子命令，请注意这个命令不允许使用-规则，例如-DEBUG|SEGFAULT，只能使用+规则。如果整个命令已经被启用，单独启用子命令没有意义，Redis会返回错误。
+* `allcommands`: +@all的别名. 注意这个会使用户允许执行所有从Redis模块中添加的命令。
+* `nocommands`:  -@all的别名。
 
 ### 允许和禁止特定的键
 `~<pattern>`:添加一个键模式以被用在用户执行命令里面。例如~*允许使用所有的键。键的模式是通配符模式，像KEYS命令一样。另外使用多个模式也是被允许的，* allkeys:是~*的别名，* resetkeys:在键模式列表里面清空所有的键模式，例如ACL ~foo:* ~bar:* resetkeys ~objects:*，将会使用户端只有权限访问objects:* 的键模式。
