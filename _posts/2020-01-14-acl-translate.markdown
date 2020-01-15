@@ -12,11 +12,11 @@ Redis访问控制列表(ACL),是一项可以实现限制特定客户端连接可
 Redis 6版本(第一个支持ACL的版本)的默认配置和之前版本完全相同，即每一个新的客户端连接有权限去访问所用命令和键，因此ACL功能对旧版客户端和应用是向后兼容(backward compatible)的，并且对旧版配置用户密码的方式，使用requirepass配置选项是完全支持的，但是不同的是requirepass配置选项只是设定default用户的密码。
 Redis AUTH命令在Redis 6版本进行扩展，现在可以使用两个参数形式：
 
-`AUTH <username> <password>`
+```AUTH <username> <password>```
 
 如果使用旧版本的使用方式：
 
-`AUTH <password>`
+```AUTH <password>```
 
 会使用 default用户进行验证，所以用这种形式进行验证意味着我们想使用default用户进行身份验证，这种方式可以提供完美的向后兼容旧版本Redis的支持。
 
@@ -35,8 +35,8 @@ ACL 是用DSL(domain specific language)语言来定义用户是否有权限访�
 
 默认配置下只有一个用户被定义（default用户）。我们可以使用 ACL LIST命令来检查当前有效的ACL规则。使用ACL LIST确认刚启动的，使用默认配置的Redis 实例ACL规则如下：
 
-`> ACL LIST`
-`1) "user default on nopass ~* +@all"`
+```> ACL LIST
+1) "user default on nopass ~* +@all"```
 
 上面的命令遵循和Redis配置文件同样的格式返回当前ACL配置的规则。
 每一行最前面的两个词是”user”和用户名。之后的词是具体ACL定义的规则。 我们下面将会看到怎样使用这些规则，但是现在，可以简单理解为默认（default）用户的配置是开启的（active（on）），不需要密码（require no password（nopass）），可以访问所有键（to access every possible key（～*))和可以执行任何命令（call every possible command（+@all））的。
