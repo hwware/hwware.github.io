@@ -5,7 +5,9 @@ date:   2020-02-18 12:58:29
 categories: Redis
 ---
 
-# Initialization
+# Redis Sentinel (1) Sentinel Initialization
+
+Redis Sentinel is a high availability solution offered by Redis. Sentinel can monitor one or many Redis Master/Slave instances, when the master instance is not healthy, Sentinel will automatically detect and perform master failover process. In this article series, the detail implementation of Redis Sentinel will be explained. 
 
 Sentinel shares the same event loop structure with Redis Core, however, it uses its unique initialization step, in the main function of Redis in server.c, and we can find the following code snippets:
 
