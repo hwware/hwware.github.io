@@ -4,7 +4,6 @@ title:  "Redis Sentinel (2) Main Time Event Function"
 date:   2020-02-25 12:58:29
 categories: Redis
 ---
-
 # Main Time Event Function
 
 In serverCron function, which is the main time event loop function running default in every 100ms, it calls sentinelTimer function, to handle all the sentinel operations, however, in sentinel mode, the server frequency will be added a specific randomization number in order to avoid the conflict of the time to vote with other sentinels during sentinel leader election process.
@@ -30,12 +29,15 @@ Sentinel Timer will do the following works:
 1.	Check whether the sentinel server is in tilt mode(tilt mode will be explained later)
 2.	Check the connection and share information with Masters, Slaves, other Sentinels, if Failover is needed, do the failover process.
 3.	Checking the script status and run certain operations.
+
 Here are the details about the work for each of the functions:
 SentinelCheckTiltCondition function checks the sentinel whether is in tilt mode, tilt mode will be explained in later chapter.
 SentinelHandleDictOfRedisInstances is a recursive function call doing the following jobs in sequence:
+
 1.	It calls sentinelHandleDictOfRedisInstance to handle specific work on each type of Sentinel connection Instance. (Masters, Slaves, Sentinels)
 2.	It recursively calls the SentinelHandleDictOfRedisInstances function to handle Slaves, Sentinels under the monitored Masters. 
 3.	It reset the specific master instance with the promoted slave if the master fail over process is done.
+
 ```
 4.	/* Perform scheduled operations for all the instances in the dictionary. 
 5.	 * Recursively call the function against dictionaries of slaves. */  
