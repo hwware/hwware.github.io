@@ -112,6 +112,7 @@ The function sentinelCheckSubjectivelyDown will check whether a specific redis i
 2.	If the instance report itself to be slave and the sentinel think it is master, also the role report time for this instance is longer than down after milliseconds plus two times info report time.
 If one of these two conditions was meet, sentinel will set the Redis instance into S_DOWN state. 
 S_down state means the Sentinel thinks this Redis instance is down, it doesn't ask other sentinels opinion which monitoring the same Redis instance yet.
+
 ``` 
 1.	/* Is this instance down from our point of view? */  
 2.	void sentinelCheckSubjectivelyDown(sentinelRedisInstance *ri) {  
@@ -152,6 +153,7 @@ S_down state means the Sentinel thinks this Redis instance is down, it doesn't a
 37.	} 
 ```
 The function sentinelCheckObjectivelyDown function checks the vote for a specific master from other sentinel instances monitoring same master. It counts the vote and if it is larger or equal than the quorum number configured for this specific master, it will mark this master into O\_DOWN state. 
+
 ```
 1.	/* Is this instance down according to the configured quorum? 
 2.	 * 
