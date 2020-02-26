@@ -110,6 +110,7 @@ In sentinelHandleRedisInstance function, which defines the cron operation of sen
 The function sentinelCheckSubjectivelyDown will check whether a specific redis instance (master, slave, sentinel) is subjectively down. Subjective down means one of following condition was met:
 1.	If the instance did not get the actively ping reply for more than down\_after\_milliseconds time.
 2.	If the instance report itself to be slave and the sentinel think it is master, also the role report time for this instance is longer than down after milliseconds plus two times info report time.
+
 If one of these two conditions was meet, sentinel will set the Redis instance into S_DOWN state. 
 S_down state means the Sentinel thinks this Redis instance is down, it doesn't ask other sentinels opinion which monitoring the same Redis instance yet.
 
