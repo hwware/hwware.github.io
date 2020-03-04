@@ -75,9 +75,9 @@ Each Sentinel will have two connections with each masters and slaves, the Comman
 35.	   } 
 ```
 
-## The purpose of command connection:
+### The Purpose of Command Connection:
 Used to send command to Master/Slaves/Sentinels, such as INFO, PING, SLAVEOF, is-master-down-by-addr etc.
-## The Purpose of Pub/Sub connection:
+### The Purpose of Pub/Sub Connection:
 Used to refresh the acknowledge from other sentinels (since all other sentinels will receive message from current sentinel about master ip/port, other sentinels etc)
 
 
